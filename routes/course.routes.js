@@ -1,7 +1,7 @@
 const {Router} = require('express')
 const config = require('config')
 const short = require('shortid')
-const Link = require('../models/Link')
+const Course = require('../models/Course')
 const auth = require('../middleware/auth.middleware')
 const router = Router()
 
@@ -12,7 +12,7 @@ router.post('/generate', auth, async (req, res) => {
 
         const code = short.generate()
 
-        const existing = await Link.findOne({ from })
+        const existing = await Course.findOne({ from })
 
         if (existing) {
             return res.json({ link: existing })
@@ -20,7 +20,7 @@ router.post('/generate', auth, async (req, res) => {
 
         const to = baseUrl + '/t/' + code
 
-        const link = new Link({
+        const link = new Course({
             code, to, from, owner: req.user.userId
         })
 
@@ -34,7 +34,7 @@ router.post('/generate', auth, async (req, res) => {
 
 router.delete('/remove', auth, async (req, res) => {
     try {
-        const link = await Link.findOneAndDelete({ _id: req.body.id })
+        const link = await Course.findOneAndDelete({ _id: req.body.id })
         res.status(200).json({ message: 'Запись удалена' })
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
@@ -43,8 +43,8 @@ router.delete('/remove', auth, async (req, res) => {
 
 router.get('/', auth, async (req, res) => {
     try {
-        const links = await Link.find({ owner: req.user.userId })
-        res.json(links)
+        const courses = await Course.find({ owner: req.user.userId })
+        res.json(courses)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
     }
@@ -52,7 +52,7 @@ router.get('/', auth, async (req, res) => {
 
 router.get('/:id', auth, async (req, res) => {
     try {
-        const link = await Link.findById(req.params.id)
+        const link = await Course.findById(req.params.id)
         res.json(link)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
