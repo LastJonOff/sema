@@ -14,7 +14,7 @@
     "course",
     "react"
   ],
-  "author": "Maksimov Semen",
+  "author": "Zaitsev Evgeniy",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
