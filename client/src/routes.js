@@ -5,6 +5,8 @@ import {CoursePage} from "./pages/CoursePage";
 import {DetailPage} from "./pages/DetailPage";
 import {AuthPage} from "./pages/AuthPage";
 import {NewsPage} from "./pages/NewsPage";
+import {CabinetPage} from  "./pages/CabinetPage";
+
 export const useRoutes = isAuthenticated =>{
     if (isAuthenticated){
         return(
@@ -17,6 +19,9 @@ export const useRoutes = isAuthenticated =>{
                 </Route>
                 <Route path = "/news" exact>
                     <NewsPage />
+                </Route>
+                <Route path = "/cabinet" exact>
+                    <CabinetPage />
                 </Route>
                 <Route path = "/detail/:id">
                     <DetailPage />

@@ -3,6 +3,7 @@ import {NavLink, useHistory} from 'react-router-dom'
 import {AuthContext} from '../context/auth.context'
 
 export const Navbar = () => {
+
     const history = useHistory()
     const auth = useContext(AuthContext)
 
@@ -20,6 +21,7 @@ export const Navbar = () => {
                     <li><NavLink to="/courses">Кружки</NavLink></li>
                     <li><NavLink to="/questions">Вопросы</NavLink></li>
                     <li><NavLink to="/news">Новости</NavLink></li>
+                    <li><NavLink to="/cabinet">Мой кабинет</NavLink></li>
                     <li><a href="/" onClick={logoutHandler}>Выйти</a></li>
                 </ul>
             </div>
