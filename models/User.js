@@ -6,7 +6,6 @@ const schema = new Schema({
     name: {type: String},
     surname: {type: String},
     links: [{type: Types.ObjectId, ref: 'Link'}],
-    courses: [{type: Types.ObjectId, ref: 'Course'}]
 });
 
 module.exports = model('User', schema);

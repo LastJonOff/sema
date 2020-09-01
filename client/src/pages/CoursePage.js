@@ -12,7 +12,7 @@ export const CoursePage = () => {
     const fetchCourses = useCallback(async () => {
         try {
             const fetched = await request('/api/courses', 'GET', null)
-
+            console.log(fetched);
             setCourses(fetched)
         } catch (e) {}
     }, [request])
@@ -25,17 +25,9 @@ export const CoursePage = () => {
         return <Loader/>
     }
 
-    const sortHandler = async (songs) => {
-        try {
-            const fetched = await request('/api/courses/sort', 'GET', null)
-            setCourses(fetched)
-        } catch (e) {}
-    }
-
-
     return (
         <>
-            {!loading && <CoursesList courses={courses}   sort = {sortHandler}/>}
+            {!loading && <CoursesList courses={courses} />}
         </>
     )
 }

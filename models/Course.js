@@ -1,9 +1,10 @@
 const {Schema, model, Types} = require('mongoose')
 
 const schema = new Schema({
-    name: {type: String, required: true},
+    title: {type: String, required: true},
+    description: {type: String, maxLength: 200},
+    imgSrc: {type: String},
     date: {type: Date, default: Date.now},
-    owner: {type: Types.ObjectId, ref: 'User'}
-})
+});
 
 module.exports = model('Course', schema)
