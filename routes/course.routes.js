@@ -41,9 +41,10 @@ router.delete('/remove', auth, async (req, res) => {
     }
 })
 
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const courses = await Course.find({ owner: req.user.userId })
+        const courses = await Course.find()
+        console.log(courses);
         res.json(courses)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })

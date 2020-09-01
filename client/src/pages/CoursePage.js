@@ -1,73 +1,41 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import {useHttp} from '../hooks/http.hook'
-import {AuthContext} from '../context/auth.context'
-import {useHistory} from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-
-
-const useStyles = makeStyles({
-    root: {
-        maxWidth: 345,
-    },
-    media: {
-        height: 200,
-    },
-});
+import {Loader} from '../components/Loader'
+import {CoursesList} from '../components/CoursesList'
+import {useHistory} from "react-router-dom";
 
 export const CoursePage = () => {
     const history = useHistory()
-    const auth = useContext(AuthContext)
-    const {request} = useHttp()
-    const [course, setCourse] = useState('')
-    const classes = useStyles(); //styles for card with useStyles()
+    const [courses, setCourses] = useState([])
+    const {loading, request} = useHttp()
+
+    const fetchCourses = useCallback(async () => {
+        try {
+            const fetched = await request('/api/courses', 'GET', null)
+
+            setCourses(fetched)
+        } catch (e) {}
+    }, [request])
 
     useEffect(() => {
-        window.M.updateTextFields()
-    }, [])
+        fetchCourses()
+    }, [fetchCourses])
 
-
-    const pressHandler = async () => {
-            try {
-                const data = await request('/api/course/', 'GET', {}, {
-                    Authorization: `Bearer ${auth.token}`
-                })
-                history.push(`/detail/${data.link._id}`)
-            } catch (e) {}
+    if (loading) {
+        return <Loader/>
     }
 
+    const sortHandler = async (songs) => {
+        try {
+            const fetched = await request('/api/courses/sort', 'GET', null)
+            setCourses(fetched)
+        } catch (e) {}
+    }
+
+
     return (
-        <Card className={classes.root}>
-            <CardActionArea>
-                <CardMedia
-                    className={classes.media}
-                    image="http://cro.karelia.ru/images/news/roboty-hokkej-2014-29.jpg"
-                    title="Contemplative Reptile"
-                />
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                        Lizard
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                        across all continents except Antarctica
-                    </Typography>
-                </CardContent>
-            </CardActionArea>
-            <CardActions>
-                <Button size="small" color="primary">
-                    Share
-                </Button>
-                <Button size="small" color="primary">
-                    Learn More
-                </Button>
-            </CardActions>
-        </Card>
+        <>
+            {!loading && <CoursesList courses={courses}   sort = {sortHandler}/>}
+        </>
     )
 }

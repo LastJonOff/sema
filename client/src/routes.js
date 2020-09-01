@@ -5,7 +5,7 @@ import {CoursePage} from "./pages/CoursePage";
 import {DetailPage} from "./pages/DetailPage";
 import {AuthPage} from "./pages/AuthPage";
 import {NewsPage} from "./pages/NewsPage";
-import {CabinetPage} from  "./pages/CabinetPage";
+import {MyPage} from "./pages/MyPage";
 
 export const useRoutes = isAuthenticated =>{
     if (isAuthenticated){
@@ -21,12 +21,12 @@ export const useRoutes = isAuthenticated =>{
                     <NewsPage />
                 </Route>
                 <Route path = "/cabinet" exact>
-                    <CabinetPage />
+                    <MyPage />
                 </Route>
                 <Route path = "/detail/:id">
                     <DetailPage />
                 </Route>
-                <Redirect to = "/create"/>
+                <Redirect to = "/cabinet"/>
             </Switch>
         )
     }
