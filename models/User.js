@@ -5,6 +5,7 @@ const schema = new Schema({
     password: {type: String, required: true},
     name: {type: String},
     surname: {type: String},
+    status: {type: String},
     links: [{type: Types.ObjectId, ref: 'Link'}],
 });
 

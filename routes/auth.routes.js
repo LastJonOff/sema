@@ -25,7 +25,7 @@ router.post(
             })
         }
 
-        const {email, password} = req.body
+        const {email, password, status} = req.body
 
         const candidate = await User.findOne({ email })
 
@@ -34,7 +34,7 @@ router.post(
         }
 
         const hashedPassword = await bcrypt.hash(password, 12)
-        const user = new User({email, password: hashedPassword})
+        const user = new User({email, password: hashedPassword, status})
 
         await user.save()
 
@@ -83,7 +83,7 @@ router.post(
                 { expiresIn: '1h'}
             )
 
-            res.json({ token, userId: user.id })
+            res.json({ token, userId: user.id, status: user.status })
 
         } catch (e) {
             res.status(500).json({message: "Что-то пошло не так, попробуйте снова"})

@@ -30,7 +30,7 @@ export const useRoutes = isAuthenticated =>{
                 <Route path = "/detail/:id">
                     <DetailPage />
                 </Route>
-                <Redirect to = "/cabinet"/>
+                <Redirect to = "/news"/>
             </Switch>
         )
     }

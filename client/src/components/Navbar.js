@@ -13,13 +13,17 @@ export const Navbar = () => {
         history.push('/')
     }
 
+    const contextHandler = () => {
+        console.log(auth);
+    }
+
 
     return (
         <nav>
             <div className="nav-wrapper blue darken-1" style={{ padding: '0 2rem' }}>
                 <span className="brand-logo">RoboCode</span>
                 <ul id="nav-mobile" className="right hide-on-med-and-down">
-                    <li><NavLink to="/create">Создать</NavLink></li>
+                    {auth.status === "admin" && <li><NavLink to="/create">Создать</NavLink></li>}
                     <li><NavLink to="/courses">Кружки</NavLink></li>
                     <li><NavLink to="/questions">Вопросы</NavLink></li>
                     <li><NavLink to="/news">Новости</NavLink></li>

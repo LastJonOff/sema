@@ -16,7 +16,6 @@ router.post('/create', async (req, res) => {
         const course = new Course({
             title, description, imgSrc, date
         })
-        console.log(course)
 
         await course.save()
 
@@ -29,7 +28,6 @@ router.post('/create', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const courses = await Course.find();
-        console.log("courses: ", courses);
         await res.json(courses)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })

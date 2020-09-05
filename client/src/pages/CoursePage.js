@@ -12,7 +12,6 @@ export const CoursePage = () => {
     const fetchCourses = useCallback(async () => {
         try {
             const fetched = await request('/api/courses', 'GET', null)
-            console.log(fetched);
             setCourses(fetched)
         } catch (e) {}
     }, [request])
