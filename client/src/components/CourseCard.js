@@ -8,8 +8,7 @@ export const CourseCard = ({ course }) => {
                 <span className="card-title" style={{fontSize: '40px'}}>{course.name}</span>
             </div>
             <div className="card-content black-text">
-                <span className="card-title "style={{fontWeight: 'bold'}}>{course.date}</span>
-
+                <p className="card-title "style={{fontWeight: 'bold'}}>{course.date}</p>
             </div>
         </div>
     )

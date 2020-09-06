@@ -20,7 +20,7 @@ export const CoursesList = ({ courses}) => {
                             </div>
                         </Link>
                         <div className="card-content black-text">
-                            <span className="card-title "style={{fontWeight: 'bold'}}>{course.date}</span>
+                            <p className="card-title ">{course.description}</p>
                         </div>
                     </div>
                 )

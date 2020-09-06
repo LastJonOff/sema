@@ -6,50 +6,23 @@ const {check, validationResult} = require('express-validator')
 const User = require('../models/User')
 const router = Router()
 
-// /api/auth/register
-router.post(
-    '/register',
-    [
-        check('email', 'Некорректный email').isEmail(),
-        check('password', 'Минимальная длина пароля 6 символов')
-            .isLength({ min: 6 })
-    ],
-    async (req, res) => {
-        try {
-            const errors = validationResult(req)
-
-            if (!errors.isEmpty()){
-                return res.status(400).json({
-                    errors: errors.array(),
-                    message: "Некорректные данные при регистрации"
-                })
-            }
-
-            const {email, password, status} = req.body
-
-            const candidate = await User.findOne({ email })
-
-            if(candidate){
-                return res.status(400).json({message: 'Такой пользователь уже существует'})
-            }
-
-            const hashedPassword = await bcrypt.hash(password, 12)
-            const user = new User({email, password: hashedPassword, status})
-
-            await user.save()
-
-            res.status(201).json({message: 'Пользователь создан'})
-
-        } catch (e) {
-            res.status(500).json({message: "Что-то пошло не так, попробуйте снова"})
-        }
-    })
-
 router.post('/', async (req, res) => {
     try {
-        console.log(req.body);
         const users = await User.findById(req.body.id);
         await res.json(users)
+    } catch (e) {
+        res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
+    }
+})
+
+router.post('/update', async (req, res) => {
+    try {
+        console.log(req.body)
+        const user = await User.updateOne({_id: req.body.id},{
+            name: req.body.name,
+            surname: req.body.surname
+        });
+        await res.json(user)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
     }
