@@ -5,6 +5,7 @@ import {CoursesList} from '../components/CoursesList'
 import {useHistory} from "react-router-dom";
 
 export const CoursePage = () => {
+
     const history = useHistory()
     const [courses, setCourses] = useState([])
     const {loading, request} = useHttp()
