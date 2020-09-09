@@ -14,10 +14,10 @@ export const DetailPage = () => {
 
     const getCourse = useCallback(async () => {
         try {
-            console.log("courseId", courseId)
             const fetched = await request(`/api/courses/${courseId}`, 'GET', null, {
                 Authorization: `Bearer ${token}`
             })
+            console.log(fetched)
             setCourse(fetched)
         } catch (e) {}
     }, [token, courseId, request])
@@ -32,7 +32,12 @@ export const DetailPage = () => {
 
     return (
         <>
-            { !loading && course && <CourseCard course={course} /> }
+            { !loading && course &&
+            <div>
+                <CourseCard course={course} />
+                <div>{course.tasks}</div>
+            </div>
+            }
         </>
     )
 }

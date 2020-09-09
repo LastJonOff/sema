@@ -7,6 +7,7 @@ import {AuthPage} from "./pages/AuthPage";
 import {NewsPage} from "./pages/NewsPage";
 import {MyPage} from "./pages/MyPage";
 import {CreatePage} from "./pages/CreatePage";
+import {CreateTaskPage} from "./pages/CreateTaskPage";
 
 export const useRoutes = isAuthenticated =>{
     if (isAuthenticated){
@@ -20,6 +21,9 @@ export const useRoutes = isAuthenticated =>{
                 </Route>
                 <Route path = "/create" exact>
                     <CreatePage />
+                </Route>
+                <Route path = "/createtask" exact>
+                    <CreateTaskPage />
                 </Route>
                 <Route path = "/news" exact>
                     <NewsPage />

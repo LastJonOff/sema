@@ -9,19 +9,26 @@ export const EditForm = ({ course, handleName, courseId }) => {
     const history = useHistory()
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+    const [courseName, setCourseName] = useState('')
     const [imgSrc, setImgSrc] = useState('')
     const [date, setDate] = useState('')
     const {request} = useHttp()
 
-    const createHandler = async () => {
+    const createCourseHandler = async () => {
         try {
             const data = await request('/api/courses/create', 'POST', {title: title, description: description, date: date, imgSrc: imgSrc})
             history.push(`/courses`)
         } catch (e) {}
     }
+    const createTaskHandler = async () => {
+        try {
+            const data = await request('/api/courses/createtask', 'POST', {title: title, task: description, courseName: courseName })
+            console.log(data)
+            history.push(`/courses`)
+        } catch (e) {}
+    }
 
     return (
-        <div className="row">
             <div className="col s8 offset-s2" style={{paddingTop: '2rem'}}>
                 <div className="input-field">
                     <input
@@ -46,7 +53,7 @@ export const EditForm = ({ course, handleName, courseId }) => {
 
                 </div>
 
-                <div className="input-field">
+                { handleName === "create" && <div className="input-field">
                     <input
                         placeholder="Ссылка на изображение"
                         id="imgSrc"
@@ -56,18 +63,29 @@ export const EditForm = ({ course, handleName, courseId }) => {
                     />
                     <label htmlFor="imgSrc">Вставьте ссылку на картинку</label>
 
-                </div>
+                </div>}
+                { handleName === "createtask" &&
+                <div className="input-field">
+                    <input
+                        placeholder="Название курса"
+                        id="courseName"
+                        type="text"
+                        value={courseName}
+                        onChange={e => setCourseName(e.target.value)}
+                    />
+                    <label htmlFor="description">Введите название курса</label>
+
+                </div>}
 
                 <div>
                     <button
                         className="btn yellow darken-4"
                         style={{marginRight: 10}}
-                        onClick={handleName === "create"? createHandler : createHandler}
+                        onClick={handleName === "create"? createCourseHandler : createTaskHandler}
                     >
                         Создать
                     </button>
                 </div>
             </div>
-        </div>
     )
 }

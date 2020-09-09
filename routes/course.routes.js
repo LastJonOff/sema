@@ -1,5 +1,7 @@
 const {Router} = require('express')
 const Course = require('../models/Course')
+const {Types} = require('mongoose')
+const HomeWork = require('../models/HomeWork')
 const auth = require('../middleware/auth.middleware')
 const router = Router()
 
@@ -25,6 +27,45 @@ router.post('/create', async (req, res) => {
     }
 })
 
+router.post('/createtask', async (req, res) => {
+    try {
+        console.log(req.body)
+        const {title, task, courseName} = req.body
+
+        const existingCourse = await Course.findOne({ title: courseName })
+        const courseId = existingCourse._id
+
+        if (existingCourse) {
+
+            const existing = await HomeWork.findOne({ title: title })
+
+            if (existing) {
+                return res.json({ task: existing })
+            }
+            const newTask = new HomeWork({
+                title, task, courseId
+            })
+
+            const saveTask = await newTask.save()
+
+            const taskId = saveTask._id
+
+            console.log("Id задания: ", taskId)
+
+            console.log("Course ID: ", saveTask.courseId)
+
+            await Course.collection.update( {_id: existingCourse._id}, { $push: {tasks: taskId } } )
+
+            res.status(201).json({ newTask })
+        }
+        else {
+            res.status(500).json({message: 'Курс не найден, попробуйте снова'})
+        }
+    } catch (e) {
+        res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
+    }
+})
+
 router.get('/', async (req, res) => {
     try {
         const courses = await Course.find();
@@ -37,7 +78,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', auth, async (req, res) => {
     try {
         const course = await Course.findById(req.params.id)
-        console.log(course)
+        console.log(course.tasks)
         await res.json(course)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })

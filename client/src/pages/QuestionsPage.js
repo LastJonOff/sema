@@ -27,7 +27,7 @@ export const QuestionsPage = () => {
         <>
             { questions.map((quest) => {
                 return (
-                    <div className="row">
+                    <div className="row" key={quest._id}>
                         <div className="col s6 message received">
                             <p className="left-align">Q: {quest.question}</p>
                         </div>

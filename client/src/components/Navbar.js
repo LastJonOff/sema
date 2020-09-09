@@ -24,6 +24,7 @@ export const Navbar = () => {
                 <span className="brand-logo">RoboCode</span>
                 <ul id="nav-mobile" className="right hide-on-med-and-down">
                     {auth.status === "admin" && <li><NavLink to="/create">Создать</NavLink></li>}
+                    {auth.status === "admin" && <li><NavLink to="/createtask">Создать ДЗ</NavLink></li>}
                     <li><NavLink to="/courses">Кружки</NavLink></li>
                     <li><NavLink to="/questions">Вопросы</NavLink></li>
                     <li><NavLink to="/news">Новости</NavLink></li>

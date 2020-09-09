@@ -5,6 +5,7 @@ const schema = new Schema({
     description: {type: String, maxLength: 200},
     imgSrc: {type: String},
     date: {type: Date, default: Date.now},
+    tasks: [ {type: Types.ObjectId, ref: 'HomeWork'} ]
 });
 
 module.exports = model('Course', schema)
