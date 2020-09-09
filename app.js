@@ -8,6 +8,7 @@ app.use(express.json({extended: true}))
 
 app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/courses', require('./routes/course.routes'))
+app.use('/api/tasks', require('./routes/tasks.routes'))
 app.use('/api/user', require('./routes/user.routes'))
 app.use('/api/questions', require('./routes/question.routes'))
 app.use('/t', require('./routes/redirect.routes'))

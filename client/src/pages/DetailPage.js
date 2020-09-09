@@ -4,12 +4,14 @@ import {useHttp} from '../hooks/http.hook'
 import {AuthContext} from '../context/auth.context'
 import {Loader} from '../components/Loader'
 import {CourseCard} from '../components/CourseCard'
+import {hexToRgb} from "@material-ui/core";
 
 export const DetailPage = () => {
 
     const {token} = useContext(AuthContext)
     const {request, loading} = useHttp()
     const [course, setCourse] = useState(null)
+    const [tasks, setTasks] = useState([])
     const courseId = useParams().id
 
     const getCourse = useCallback(async () => {
@@ -17,8 +19,24 @@ export const DetailPage = () => {
             const fetched = await request(`/api/courses/${courseId}`, 'GET', null, {
                 Authorization: `Bearer ${token}`
             })
-            console.log(fetched)
+
+            const newTasks = fetched.tasks
+
+            let fetchedTask = []
+
+            for (const taskId of newTasks) {
+
+                fetchedTask.push( await request(`/api/tasks/${taskId}`, 'GET', null, {
+                    Authorization: `Bearer ${token}`
+                }))
+
+            }
+            console.log(fetchedTask, " fetched")
+
+            setTasks(fetchedTask)
+
             setCourse(fetched)
+
         } catch (e) {}
     }, [token, courseId, request])
 
@@ -34,8 +52,23 @@ export const DetailPage = () => {
         <>
             { !loading && course &&
             <div>
-                <CourseCard course={course} />
-                <div>{course.tasks}</div>
+                <img src={course.imgSrc} alt="" className="center-block"/>
+
+                <div>
+                    <span>{course.title}</span>
+                    <span>{course.description}</span>
+                </div>
+
+                <ul className="collection">
+                    { tasks.map((task) => {
+                        return (
+                            <li className="collection-item" key={task._id}>
+                                <h3 >{task.title}</h3>
+                                <p>{task.task}</p>
+                            </li>
+                        )
+                    }) }
+                </ul>
             </div>
             }
         </>

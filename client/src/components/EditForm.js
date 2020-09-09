@@ -42,7 +42,7 @@ export const EditForm = ({ course, handleName, courseId }) => {
 
                 </div>
                 <div className="input-field">
-                    <input
+                    <textarea
                         placeholder="Описание"
                         id="description"
                         type="text"
