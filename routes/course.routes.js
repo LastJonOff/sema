@@ -36,8 +36,9 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', auth, async (req, res) => {
     try {
-        const link = await Course.findById(req.params.id)
-        await res.json(link)
+        const course = await Course.findById(req.params.id)
+        console.log(course)
+        await res.json(course)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
     }

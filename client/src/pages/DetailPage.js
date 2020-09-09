@@ -3,26 +3,28 @@ import {useParams} from 'react-router-dom'
 import {useHttp} from '../hooks/http.hook'
 import {AuthContext} from '../context/auth.context'
 import {Loader} from '../components/Loader'
-import {LinkCard} from '../components/LinkCard'
+import {CourseCard} from '../components/CourseCard'
 
 export const DetailPage = () => {
+
     const {token} = useContext(AuthContext)
     const {request, loading} = useHttp()
-    const [link, setLink] = useState(null)
-    const linkId = useParams().id
+    const [course, setCourse] = useState(null)
+    const courseId = useParams().id
 
-    const getLink = useCallback(async () => {
+    const getCourse = useCallback(async () => {
         try {
-            const fetched = await request(`/api/link/${linkId}`, 'GET', null, {
+            console.log("courseId", courseId)
+            const fetched = await request(`/api/courses/${courseId}`, 'GET', null, {
                 Authorization: `Bearer ${token}`
             })
-            setLink(fetched)
+            setCourse(fetched)
         } catch (e) {}
-    }, [token, linkId, request])
+    }, [token, courseId, request])
 
     useEffect(() => {
-        getLink()
-    }, [getLink])
+        getCourse()
+    }, [getCourse])
 
     if (loading) {
         return <Loader />
@@ -30,7 +32,7 @@ export const DetailPage = () => {
 
     return (
         <>
-            { !loading && link && <LinkCard link={link} /> }
+            { !loading && course && <CourseCard course={course} /> }
         </>
     )
 }
