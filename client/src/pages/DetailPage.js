@@ -52,11 +52,11 @@ export const DetailPage = () => {
         <>
             { !loading && course &&
             <div>
-                <img src={course.imgSrc} alt="" className="center-block"/>
+                <img src={course.imgSrc} alt="" className="center-block" style={{marginTop: 10, marginBottom: 20, width:600, height:400}}/>
 
                 <div>
-                    <span>{course.title}</span>
-                    <span>{course.description}</span>
+                    <h3>{course.title}</h3>
+                    <p>{course.description}</p>
                 </div>
 
                 <ul className="collection">

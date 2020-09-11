@@ -12,17 +12,18 @@ export const CoursesList = ({ courses}) => {
         <>
             { courses.map((course) => {
                 return (
-                    <div className="card center-align" style = {{width:'400px', display: 'inline-block', margin: '10px'}}  key={course._id}>
-                        <Link to={`/detail/${course._id}`}>
-                            <div className="card-image " style={{width: '400px', height:'400px'}}>
-                                <img src={course.imgSrc} />
-                                <span className="card-title" style={{fontSize: '40px'}}>{course.title}</span>
-                            </div>
-                        </Link>
-                        <div className="card-content black-text">
-                            <p className="card-title ">{course.description}</p>
+                    <div className="card" style = {{width:'400px', display: 'inline-block', margin: '10px'}} key={course._id}>
+                        <div className="card-image">
+                            <Link to={`/detail/${course._id}`}>
+                                <img src={course.imgSrc} style={{width: '400px', height:'400px'}}/>
+                            </Link>
+                            <span className="card-title">{course.title}</span>
+                        </div>
+                        <div className="card-content">
+                            <p>{course.description}</p>
                         </div>
                     </div>
+                
                 )
             }) }
         </>
