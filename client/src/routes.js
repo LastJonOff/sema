@@ -8,6 +8,7 @@ import {NewsPage} from "./pages/NewsPage";
 import {MyPage} from "./pages/MyPage";
 import {CreatePage} from "./pages/CreatePage";
 import {CreateTaskPage} from "./pages/CreateTaskPage";
+import {RegisterPage} from "./pages/RegisterPage";
 
 export const useRoutes = isAuthenticated =>{
     if (isAuthenticated){
@@ -33,6 +34,9 @@ export const useRoutes = isAuthenticated =>{
                 </Route>
                 <Route path = "/detail/:id">
                     <DetailPage />
+                </Route>
+                <Route path = "/register">
+                    <RegisterPage/>
                 </Route>
                 <Redirect to = "/news"/>
             </Switch>

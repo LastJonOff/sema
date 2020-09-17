@@ -23,6 +23,7 @@ export const Navbar = () => {
             <div className="nav-wrapper blue darken-1" style={{ padding: '0 2rem' }}>
                 <span className="brand-logo">RoboCode</span>
                 <ul id="nav-mobile" className="right hide-on-med-and-down">
+                    {auth.status === "admin" && <li><NavLink to="/register">Регистрация</NavLink></li>}
                     {auth.status === "admin" && <li><NavLink to="/create">Создать</NavLink></li>}
                     {auth.status === "admin" && <li><NavLink to="/createtask">Создать ДЗ</NavLink></li>}
                     <li><NavLink to="/courses">Кружки</NavLink></li>

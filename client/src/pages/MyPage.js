@@ -27,16 +27,6 @@ export const MyPage = () => {
         } catch (e) {}
     }, [request])
 
-    const updateHandler = async () => {
-        try {
-            const data = await request('/api/user/update', 'POST', {name: name, surname: surname, id: auth.userId})
-            console.log("data", data)
-            setName(data.name)
-            setSurname(data.surname)
-            history.push(`/cabinet`)
-        } catch (e) {}
-    }
-
     useEffect(() => {
         window.M.updateTextFields()
         fetchInfo()
@@ -44,47 +34,6 @@ export const MyPage = () => {
 
     if (loading) {
         return <Loader/>
-    }
-
-    if (!info.name){
-        return (
-            <div className="row">
-                <div className="col s8 offset-s2" style={{paddingTop: '2rem'}}>
-                    <div className="input-field">
-                        <input
-                            placeholder="Имя"
-                            id="name"
-                            type="text"
-                            value={name}
-                            onChange={e => setName(e.target.value)}
-                        />
-                        <label htmlFor="title">Введите имя</label>
-
-                    </div>
-                    <div className="input-field">
-                        <input
-                            placeholder="Фамилия"
-                            id="surname"
-                            type="text"
-                            value={surname}
-                            onChange={e => setSurname(e.target.value)}
-                        />
-                        <label htmlFor="description">Введите фамилию</label>
-
-                    </div>
-
-                    <div>
-                        <button
-                            className="btn yellow darken-4"
-                            style={{marginRight: 10}}
-                            onClick={updateHandler}
-                        >
-                            Изменить
-                        </button>
-                    </div>
-                </div>
-            </div>
-        )
     }
 
     return (
