@@ -29,24 +29,30 @@ router.post('/create', async (req, res) => {
 
 router.post('/createtask', async (req, res) => {
     try {
-        console.log(req.body)
         const {title, task, courseName} = req.body
 
+        console.log()
+
         const existingCourse = await Course.findOne({ title: courseName })
+
         const courseId = existingCourse._id
 
         if (existingCourse) {
-
             const existing = await HomeWork.findOne({ title: title })
 
             if (existing) {
                 return res.json({ task: existing })
             }
+
             const newTask = new HomeWork({
                 title, task, courseId
             })
 
+            console.log(newTask)
+
             const saveTask = await newTask.save()
+
+            console.log('SaveTask: ', saveTask)
 
             const taskId = saveTask._id
 
@@ -54,7 +60,7 @@ router.post('/createtask', async (req, res) => {
 
             console.log("Course ID: ", saveTask.courseId)
 
-            await Course.collection.update( {_id: existingCourse._id}, { $push: {tasks: taskId } } )
+            await Course.updateOne( {_id: existingCourse._id}, { $push: {tasks: taskId } } )
 
             res.status(201).json({ newTask })
         }
@@ -62,7 +68,7 @@ router.post('/createtask', async (req, res) => {
             res.status(500).json({message: 'Курс не найден, попробуйте снова'})
         }
     } catch (e) {
-        res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
+        res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова ', e })
     }
 })
 

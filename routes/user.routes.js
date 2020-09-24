@@ -17,11 +17,13 @@ router.post('/', async (req, res) => {
 
 router.post('/update', async (req, res) => {
     try {
-        console.log(req.body)
+        console.log("body of rec ", req.body)
+
         const user = await User.updateOne({_id: req.body.id},{
             name: req.body.name,
             surname: req.body.surname
         });
+
         await res.json(user)
     } catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова' })
