@@ -5,8 +5,8 @@ import {AuthContext} from "../context/auth.context";
 
 export const CreateTaskPage = () => {
 
-    const message = useMessage();
     const auth = useContext(AuthContext);
+    const message = useMessage();
     const {loading, request, error, clearError} = useHttp();
     const [form, setForm] = useState({
         title: '', task: '', courseName: ''

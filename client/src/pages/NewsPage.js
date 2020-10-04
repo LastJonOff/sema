@@ -9,7 +9,7 @@ export const NewsPage = () => {
 
     return (
         <div className="row">
-            News page
+            Данный раздел находится в разработке, скоро продолжим вас радовать!
         </div>
     )
 }

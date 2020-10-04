@@ -26,7 +26,7 @@ export const CreatePage = () => {
 
     const createTaskHandler = async () => {
         try {
-            const data = await request('/api/courses/createtask', 'POST', {...form})
+            const data = await request('/api/courses/create', 'POST', {...form})
             message(data.message)
         } catch (e) {}
     }
@@ -36,7 +36,7 @@ export const CreatePage = () => {
             <div className="col s6 offset-s3">
                 <div className="card blue darken-1">
                     <div className="card-content white-text">
-                        <span className="card-title">Регистрация</span>
+                        <span className="card-title">Новый курс</span>
                         <div>
 
                             <div className="input-field">
