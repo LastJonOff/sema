@@ -64,7 +64,7 @@ export const DetailPage = () => {
                         return (
                             <li className="collection-item" key={task._id}>
                                 <h3 >{task.title}</h3>
-                                <p>{task.task}</p>
+                                <p dangerouslySetInnerHTML={{__html: task.task}}></p>
                             </li>
                         )
                     }) }

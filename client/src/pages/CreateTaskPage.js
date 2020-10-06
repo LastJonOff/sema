@@ -54,13 +54,14 @@ export const CreateTaskPage = () => {
                             </div>
 
                             <div className="input-field">
-                                <input
+                                <textarea
                                     placeholder="Введите описание"
                                     id="task"
                                     type="text"
                                     name="task"
                                     className="yellow-input"
                                     value={form.description}
+                                    style={{height: 200}}
                                     onChange={changeHandler}
                                 />
                                 <label htmlFor="task">Описание задания</label>
