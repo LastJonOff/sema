@@ -8,7 +8,7 @@ export const CreatePage = () => {
     const message = useMessage()
     const {loading, request, error, clearError} = useHttp()
     const [form, setForm] = useState({
-        title: '', description: '', courseName: ''
+        title: '', description: '', imgSrc: ''
     })
 
     useEffect(() => {
@@ -24,7 +24,7 @@ export const CreatePage = () => {
         setForm({ ...form, [event.target.name]: event.target.value })
     }
 
-    const createTaskHandler = async () => {
+    const createCourseHandler = async () => {
         try {
             const data = await request('/api/courses/create', 'POST', {...form})
             message(data.message)
@@ -49,7 +49,7 @@ export const CreatePage = () => {
                                     value={form.title}
                                     onChange={changeHandler}
                                 />
-                                <label htmlFor="title">Название</label>
+                                <label htmlFor="title">Название курса</label>
                             </div>
 
                             <div className="input-field">
@@ -62,20 +62,20 @@ export const CreatePage = () => {
                                     value={form.description}
                                     onChange={changeHandler}
                                 />
-                                <label htmlFor="description">Описание задания</label>
+                                <label htmlFor="description">Описание курса</label>
                             </div>
 
                             <div className="input-field">
                                 <input
-                                    placeholder="Введите название курса"
+                                    placeholder="Вставьте ссылку на изображение"
                                     id="courseName"
                                     type="text"
-                                    name="courseName"
+                                    name="imgSrc"
                                     className="yellow-input"
-                                    value={form.courseName}
+                                    value={form.imgSrc}
                                     onChange={changeHandler}
                                 />
-                                <label htmlFor="courseName">Имя курса</label>
+                                <label htmlFor="imgSrc">Изображение</label>
                             </div>
 
                         </div>
@@ -83,7 +83,7 @@ export const CreatePage = () => {
                     <div className="card-action">
                         <button
                             className="btn grey lighten-1 black-text"
-                            onClick={createTaskHandler}
+                            onClick={createCourseHandler}
                             disabled={loading}
                         >
                             Создать

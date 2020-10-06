@@ -31,6 +31,7 @@ router.post('/createtask', async (req, res) => {
     try {
         const {title, task, courseName} = req.body
         const existingCourse = await Course.findOne({ title: courseName })
+        console.log(req.body)
         const courseId = existingCourse._id
 
         if (existingCourse) {
