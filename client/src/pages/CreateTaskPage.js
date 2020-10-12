@@ -34,7 +34,7 @@ export const CreateTaskPage = () => {
 
     return (
         <div className="row">
-            <div className="col s6 offset-s3">
+            <div className="col s12 l6 offset-l3">
                 <div className="card blue darken-1">
                     <div className="card-content white-text">
                         <span className="card-title">Создать задание</span>

@@ -1,15 +1,21 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {BrowserRouter as Router} from "react-router-dom";
-import  'materialize-css'
+import 'materialize-css'
 import {useRoutes} from "./routes";
 import {useAuth} from "./hooks/auth.hook";
 import {AuthContext} from "./context/auth.context";
 import {Navbar} from "./components/Navbar";
+import M from  'materialize-css/dist/js/materialize.min.js';
 
 function App() {
     const {token, login, logout, userId, status} = useAuth()
     const isAuthenticated = !!token
     const routes = useRoutes(isAuthenticated)
+
+    useEffect(() => {
+        let sidenav = document.querySelector('#slide-out');
+        M.Sidenav.init(sidenav, {});
+    })
   return (
       <AuthContext.Provider value = {{
           token, login, logout, userId, isAuthenticated, status
