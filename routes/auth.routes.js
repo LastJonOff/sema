@@ -5,6 +5,7 @@ const jwt  = require('jsonwebtoken')
 const {check, validationResult} = require('express-validator')
 const User = require('../models/User')
 const router = Router()
+const nodemailer = require('nodemailer');
 
 // /api/auth/register
 router.post(
@@ -91,5 +92,46 @@ router.post(
             res.status(500).json({message: "Что-то пошло не так, попробуйте снова"})
         }
 })
+
+// /api/auth/sendmail
+router.post(
+    '/sendmail',
+
+    async (req, res) => {
+        try {
+
+            let message = {from: '', to: '', subject: 'Информация о регистрации', text: '', html: ''}
+            const {email, password, status, name, surname} = req.body
+
+            let transporter = nodemailer.createTransport({
+                service: "gmail",
+                auth: {
+                    user: "robolearn.staff@gmail.com",
+                    pass: "robolearn"
+                }
+            });
+
+            const mailOptions = {
+                from: 'robolearn.staff@gmail.com',
+                to: email,
+                subject: 'Информация о регистрации',
+                text: 'Добро пожаловать в образовательную платформу RoboCode, ' + name + ' ' + surname + '!\n' + 'Логин: ' + email + '\nПароль: ' + password
+            };
+
+            let info = await transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
+
+            res.json({info: info, message: "Письмо успешно отправлено" })
+
+        } catch (e) {
+            console.log(e)
+            res.status(500).json({message: "Что-то пошло не так, попробуйте снова"})
+        }
+    })
 
 module.exports = router

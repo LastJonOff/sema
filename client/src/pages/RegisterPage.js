@@ -27,7 +27,13 @@ export const RegisterPage = () => {
     const registerHandler = async () => {
         try {
             const data = await request('/api/auth/register', 'POST', {...form})
+            const emailResult = await request('/api/auth/sendmail', 'POST', {...form})
+
+            console.log(emailResult)
+
             message(data.message)
+            message(emailResult.message)
+
         } catch (e) {}
     }
 
