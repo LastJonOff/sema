@@ -14,7 +14,9 @@ function App() {
 
     useEffect(() => {
         let sidenav = document.querySelector('#slide-out');
+        let elems = document.querySelectorAll('.dropdown-trigger');
         M.Sidenav.init(sidenav, {});
+        M.Dropdown.init(elems, {inDuration: 300, outDuration: 225});
     })
   return (
       <AuthContext.Provider value = {{

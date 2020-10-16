@@ -9,6 +9,7 @@ import {MyPage} from "./pages/MyPage";
 import {CreatePage} from "./pages/CreatePage";
 import {CreateTaskPage} from "./pages/CreateTaskPage";
 import {RegisterPage} from "./pages/RegisterPage";
+import {CreateNewsPage} from "./pages/CreateNewsPage";
 
 export const useRoutes = isAuthenticated =>{
     if (isAuthenticated){
@@ -25,6 +26,9 @@ export const useRoutes = isAuthenticated =>{
                 </Route>
                 <Route path = "/createtask" exact>
                     <CreateTaskPage />
+                </Route>
+                <Route path = "/createnews" exact>
+                    <CreateNewsPage />
                 </Route>
                 <Route path = "/news" exact>
                     <NewsPage />
