@@ -1,7 +1,13 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import {useHttp} from '../hooks/http.hook'
 import {useMessage} from '../hooks/message.hook'
 import {AuthContext} from '../context/auth.context'
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import {Link} from "react-router-dom";
 
 export const CreatePage = () => {
 
@@ -33,65 +39,50 @@ export const CreatePage = () => {
     }
 
     return (
-        <div className="row">
-            <div className="col s12 l6 offset-l3">
-                <div className="card blue darken-1">
-                    <div className="card-content white-text">
-                        <span className="card-title">Новый курс</span>
-                        <div>
+        <Form
+            style={{marginTop:"20%", width: "60%", marginLeft:"auto", marginRight:"auto"}}
+        >
+            <Form.Group controlId="formBasicTitle">
+                <Form.Label>Название курса</Form.Label>
+                <Form.Control
+                    type="text"
+                    name = "title"
+                    placeholder="Введите название курса"
+                    value={form.title}
+                    onChange={changeHandler}
+                />
+            </Form.Group>
 
-                            <div className="input-field">
-                                <input
-                                    placeholder="Введите название"
-                                    id="title"
-                                    type="text"
-                                    name="title"
-                                    className="yellow-input"
-                                    value={form.title}
-                                    onChange={changeHandler}
-                                />
-                                <label htmlFor="title">Название курса</label>
-                            </div>
+            <Form.Group controlId="formBasicDescription">
+                <Form.Label>Введите описание</Form.Label>
+                <Form.Control
+                    type="text"
+                    name = "description"
+                    placeholder="Описание"
+                    value={form.description}
+                    onChange={changeHandler}
+                    as="textarea" rows={6}
+                />
+            </Form.Group>
 
-                            <div className="input-field">
-                                <input
-                                    placeholder="Введите описание"
-                                    id="description"
-                                    type="text"
-                                    name="description"
-                                    className="yellow-input"
-                                    value={form.description}
-                                    onChange={changeHandler}
-                                />
-                                <label htmlFor="description">Описание курса</label>
-                            </div>
+            <Form.Group controlId="formBasicImage">
+                <Form.Label>Введите ссылку на картинку</Form.Label>
+                <Form.Control
+                    type="text"
+                    name = "imgSrc"
+                    placeholder="google.com/image/id"
+                    value={form.imgSrc}
+                    onChange={changeHandler}
+                />
+            </Form.Group>
 
-                            <div className="input-field">
-                                <input
-                                    placeholder="Вставьте ссылку на изображение"
-                                    id="courseName"
-                                    type="text"
-                                    name="imgSrc"
-                                    className="yellow-input"
-                                    value={form.imgSrc}
-                                    onChange={changeHandler}
-                                />
-                                <label htmlFor="imgSrc">Изображение</label>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div className="card-action">
-                        <button
-                            className="btn grey lighten-1 black-text"
-                            onClick={createCourseHandler}
-                            disabled={loading}
-                        >
-                            Создать
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <Button
+                variant="primary"
+                onClick={createCourseHandler}
+                disabled={loading}
+            >
+                Создать
+            </Button>
+        </Form>
     )
 }

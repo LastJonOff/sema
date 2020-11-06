@@ -1,7 +1,11 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import {useHttp} from '../hooks/http.hook'
 import {useMessage} from '../hooks/message.hook'
 import {AuthContext} from '../context/auth.context'
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export const RegisterPage = () => {
     const auth = useContext(AuthContext)
@@ -38,78 +42,76 @@ export const RegisterPage = () => {
     }
 
     return (
-        <div className="row">
-            <div className="col s12 l6 offset-l3">
-                <div className="card blue darken-1">
-                    <div className="card-content white-text">
-                        <span className="card-title">Регистрация</span>
-                        <div>
+        <Form
+              style={{marginTop:"20%", width: "60%", marginLeft:"auto", marginRight:"auto"}}
+        >
+            <Form.Group controlId="formBasicEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                    type="email"
+                    name = "email"
+                    placeholder="Введите email"
+                    value={form.email}
+                    onChange={changeHandler}
+                />
+                <Form.Text className="text-muted">
+                    Данные для входа можно получить у преподавателя
+                </Form.Text>
+            </Form.Group>
 
-                            <div className="input-field">
-                                <input
-                                    placeholder="Введите email"
-                                    id="email"
-                                    type="text"
-                                    name="email"
-                                    className="yellow-input"
-                                    value={form.email}
-                                    onChange={changeHandler}
-                                />
-                                <label htmlFor="email">Email</label>
-                            </div>
+            <Form.Group controlId="formBasicPassword">
+                <Form.Label>Пароль</Form.Label>
+                <Form.Control
+                    type="password"
+                    name = "password"
+                    placeholder="Пароль"
+                    value={form.password}
+                    onChange={changeHandler}
+                />
+            </Form.Group>
 
-                            <div className="input-field">
-                                <input
-                                    placeholder="Введите пароль"
-                                    id="password"
-                                    type="password"
-                                    name="password"
-                                    className="yellow-input"
-                                    value={form.password}
-                                    onChange={changeHandler}
-                                />
-                                <label htmlFor="email">Пароль</label>
-                            </div>
+            <Row>
+                <Col>
+                    <Form.Group controlId="formBasicName">
+                        <Form.Label>Имя</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name = "name"
+                            placeholder="Иван"
+                            value={form.name}
+                            onChange={changeHandler}
+                        />
+                    </Form.Group>
+                </Col>
+                <Col>
+                    <Form.Group controlId="formBasicName">
+                        <Form.Label>Фамилия</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name = "surname"
+                            placeholder="Иванов"
+                            value={form.surname}
+                            onChange={changeHandler}
+                        />
+                    </Form.Group>
+                </Col>
+            </Row>
 
-                            <div className="input-field">
-                                <input
-                                    placeholder="Введите имя"
-                                    id="name"
-                                    type="text"
-                                    name="name"
-                                    className="yellow-input"
-                                    value={form.name}
-                                    onChange={changeHandler}
-                                />
-                                <label htmlFor="name">Имя</label>
-                            </div>
+            <Form.Group controlId="formSelect">
+                <Form.Label>Статус</Form.Label>
+                <Form.Control as="select" name = "status" onChange={changeHandler}>
+                    <option value="student">ученик</option>
+                    <option value="admin">администратор</option>
+                </Form.Control>
+            </Form.Group>
 
-                            <div className="input-field">
-                                <input
-                                    placeholder="Введите фамилию"
-                                    id="surname"
-                                    type="text"
-                                    name="surname"
-                                    className="yellow-input"
-                                    value={form.surname}
-                                    onChange={changeHandler}
-                                />
-                                <label htmlFor="surname">Фамилия</label>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div className="card-action">
-                        <button
-                            className="btn grey lighten-1 black-text"
-                            onClick={registerHandler}
-                            disabled={loading}
-                        >
-                            Регистрация
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <Button
+                variant="primary"
+                onClick={registerHandler}
+                disabled={loading}
+            >
+                Регистрация
+            </Button>
+        </Form>
     )
 }
