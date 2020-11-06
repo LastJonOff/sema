@@ -4,8 +4,9 @@ import 'materialize-css'
 import {useRoutes} from "./routes";
 import {useAuth} from "./hooks/auth.hook";
 import {AuthContext} from "./context/auth.context";
-import {Navbar} from "./components/Navbar";
+import {MyNavbar} from "./components/Navbar";
 import M from  'materialize-css/dist/js/materialize.min.js';
+import Container from "react-bootstrap/Container";
 
 function App() {
     const {token, login, logout, userId, status} = useAuth()
@@ -14,19 +15,19 @@ function App() {
 
     useEffect(() => {
         let sidenav = document.querySelector('#slide-out');
-        let elems = document.querySelectorAll('.dropdown-trigger');
+        //let elems = document.querySelectorAll('.dropdown-trigger');
         M.Sidenav.init(sidenav, {});
-        M.Dropdown.init(elems, {inDuration: 300, outDuration: 225});
+        //M.Dropdown.init(elems, {inDuration: 300, outDuration: 225});
     })
   return (
       <AuthContext.Provider value = {{
           token, login, logout, userId, isAuthenticated, status
       }}>
           <Router>
-              {isAuthenticated && <Navbar />}
-              <div className="container">
+              {isAuthenticated && <MyNavbar />}
+              <Container>
                   {routes}
-              </div>
+              </Container>
           </Router>
       </AuthContext.Provider>
   )

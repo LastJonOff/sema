@@ -2,7 +2,6 @@ import React, {useCallback, useContext, useEffect, useState} from 'react'
 import {useHttp} from '../hooks/http.hook'
 import {AuthContext} from '../context/auth.context'
 import {Loader} from '../components/Loader'
-import {hexToRgb} from "@material-ui/core";
 import {NewsList} from "../components/NewsList";
 
 export const NewsPage = () => {

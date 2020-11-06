@@ -4,6 +4,7 @@ import {useMessage} from '../hooks/message.hook'
 import {AuthContext} from '../context/auth.context'
 
 export const CreatePage = () => {
+
     const auth = useContext(AuthContext)
     const message = useMessage()
     const {loading, request, error, clearError} = useHttp()

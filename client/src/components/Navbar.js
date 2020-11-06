@@ -1,11 +1,13 @@
-import React, {useContext} from 'react'
-import {NavLink, useHistory} from 'react-router-dom'
+import React, {useContext, useEffect} from 'react'
+import { useHistory} from 'react-router-dom'
 import {AuthContext} from '../context/auth.context'
-import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
-import ArrowDropDown from '@material-ui/icons/ArrowDropDown'
+import M from 'materialize-css/dist/js/materialize.min';
+import {Navbar} from "react-bootstrap";
+import Nav from "react-bootstrap/Nav";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 
-export const Navbar = () => {
+export const MyNavbar = () => {
 
     const history = useHistory()
     const auth = useContext(AuthContext)
@@ -16,47 +18,32 @@ export const Navbar = () => {
         history.push('/')
     }
 
-    const contextHandler = () => {
-        console.log(auth);
-    }
-
+    useEffect(() => {
+        let dropdown = document.querySelectorAll('.dropdown-trigger');
+        M.Dropdown.init(dropdown, {inDuration: 300, outDuration: 225});
+    })
 
     return (
         <>
-            <nav>
-                <div className="nav-wrapper blue darken-1" style={{ padding: '0 2rem' }}>
-                    <span className="brand-logo">RoboCode</span>
-                    <a href="#" data-target="slide-out" className="sidenav-trigger show-on-small"><MenuRoundedIcon /></a>
-                    <ul id="nav-mobile" className="right hide-on-med-and-down">
-                        {auth.status === "admin" &&
-                            <li>
-                                <a className="dropdown-trigger" href="#!" data-target="dropdown1">Создать    <ArrowDropDown/></a>
-                            </li>
-                        }
-                        <li><NavLink to="/courses">Кружки</NavLink></li>
-                        <li><NavLink to="/questions">Вопросы</NavLink></li>
-                        <li><NavLink to="/news">Новости</NavLink></li>
-                        <li><NavLink to="/cabinet">Мой кабинет</NavLink></li>
-                        <li><a href="/" onClick={logoutHandler}>Выйти</a></li>
-                    </ul>
-                </div>
-            </nav>
-            <ul id="slide-out" className="sidenav">
-                {auth.status === "admin" && <li><NavLink to="/register">Регистрация</NavLink></li>}
-                {auth.status === "admin" && <li><NavLink to="/create">Создать</NavLink></li>}
-                {auth.status === "admin" && <li><NavLink to="/createtask">Создать ДЗ</NavLink></li>}
-                <li><NavLink to="/courses">Кружки</NavLink></li>
-                <li><NavLink to="/questions">Вопросы</NavLink></li>
-                <li><NavLink to="/news">Новости</NavLink></li>
-                <li><NavLink to="/cabinet">Мой кабинет</NavLink></li>
-                <li><a href="/" onClick={logoutHandler}>Выйти</a></li>
-            </ul>
-            <ul id="dropdown1" className="dropdown-content">
-                <li><NavLink to="/register" className="text-black-50">Ученик</NavLink></li>
-                <li><NavLink to="/create">Курс</NavLink></li>
-                <li><NavLink to="/createtask">Задание</NavLink></li>
-                <li><NavLink to="/createnews">Новость</NavLink></li>
-            </ul>
+            <Navbar bg="primary" expand="lg" variant="dark">
+                <Navbar.Brand href="#home">RoboLearn</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Nav className="ml-auto ">
+                    {auth.status === "admin" &&
+                    <NavDropdown title="Создать" id="basic-nav-dropdown">
+                        <NavDropdown.Item href="/register">Ученик</NavDropdown.Item>
+                        <NavDropdown.Item href="/create">Курс</NavDropdown.Item>
+                        <NavDropdown.Item href="/createtask">Задание</NavDropdown.Item>
+                        <NavDropdown.Item href="/createnews">Новость</NavDropdown.Item>
+                    </NavDropdown>
+                    }
+                    <Nav.Link href="/courses">Курсы</Nav.Link>
+                    <Nav.Link href="/questions">Вопросы</Nav.Link>
+                    <Nav.Link href="/news">Новости</Nav.Link>
+                    <Nav.Link href="/cabinet">Мой кабинет</Nav.Link>
+                    <Nav.Link href="/" onClick={logoutHandler}>Выйти</Nav.Link>
+                </Nav>
+            </Navbar>
         </>
     )
 }

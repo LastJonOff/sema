@@ -1,24 +1,7 @@
 @import "~materialize-css/dist/css/materialize.min.css";
+@import '~bootstrap/dist/css/bootstrap.min.css';
 
-.input.yellow-input{
-    border-bottom: 1px solid #fff!important;
-    box-shadow: 0 1px 0 0 #fff;
-}
-
-input.yellow-input + label{
-    color: #fff!important;
-}
-
-input.yellow-input:focus + label{
-    color: #ffeb3b!important;
-}
-
-input.yellow-input:focus{
-    border-bottom: 1px solid #ffeb3b!important;
-    box-shadow: 0 1px 0 0 #ffeb3b;
-}
-
-.message {
+.message{
     color: #000;
     clear: both;
     line-height: 18px;
@@ -41,4 +24,23 @@ input.yellow-input:focus{
     background: #7bd0ff;
     border-radius: 0px 5px 5px 5px;
     float: left;
+}
+
+
+.myForm-enter {
+    opacity: 0;
+    transform: scale(0.9);
+}
+.myForm-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 300ms;
+}
+.myForm-exit {
+    opacity: 1;
+}
+.myForm-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 300ms, transform 300ms;
 }

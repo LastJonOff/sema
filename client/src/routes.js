@@ -42,7 +42,6 @@ export const useRoutes = isAuthenticated =>{
                 <Route path = "/register">
                     <RegisterPage/>
                 </Route>
-                <Redirect to = "/news"/>
             </Switch>
         )
     }
@@ -52,7 +51,6 @@ export const useRoutes = isAuthenticated =>{
             <Route path ="/" exact>
                 <AuthPage/>
             </Route>
-            <Redirect to = "/"/>
         </Switch>
     )
 }

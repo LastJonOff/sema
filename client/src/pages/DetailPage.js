@@ -3,8 +3,6 @@ import {useParams} from 'react-router-dom'
 import {useHttp} from '../hooks/http.hook'
 import {AuthContext} from '../context/auth.context'
 import {Loader} from '../components/Loader'
-import {CourseCard} from '../components/CourseCard'
-import {hexToRgb} from "@material-ui/core";
 
 export const DetailPage = () => {
 

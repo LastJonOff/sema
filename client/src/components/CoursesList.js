@@ -1,6 +1,10 @@
-import React, {useContext} from 'react'
-import {useHttp} from '../hooks/http.hook'
+import React from 'react'
 import {Link} from 'react-router-dom'
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import {Container} from "react-bootstrap";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export const CoursesList = ({ courses}) => {
 
@@ -10,22 +14,27 @@ export const CoursesList = ({ courses}) => {
 
     return (
         <>
-            { courses.map((course) => {
-                return (
-                    <div className="card" style = {{width:'400px', display: 'inline-block', margin: '10px'}} key={course._id}>
-                        <div className="card-image">
-                            <Link to={`/detail/${course._id}`}>
-                                <img src={course.imgSrc} style={{width: '400px', height:'400px'}}/>
-                            </Link>
-                            <span className="card-title">{course.title}</span>
-                        </div>
-                        <div className="card-content">
-                            <p>{course.description}</p>
-                        </div>
-                    </div>
-                
-                )
-            }) }
+            <Container fluid="md">
+                <Row className="justify-content-md-center">
+                    { courses.map((course) => {
+                        return (
+                            <Col md="auto">
+                                <Card style={{ width: '320px', height:'400px', margin:'10px' }} key={ course._id}>
+                                    <Card.Img variant="top" style={{width:'100%', height: '60%'}} src={course.imgSrc}  />
+                                    <Card.Body>
+                                        <Link to={`/detail/${course._id}`}>
+                                            <Card.Title>{course.title}</Card.Title>
+                                        </Link>
+                                        <Card.Text>
+                                            {course.description}
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        )
+                    }) }
+                </Row>
+            </Container>
         </>
     )
 }

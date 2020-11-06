@@ -2,6 +2,13 @@ import React, {useContext, useEffect, useState} from 'react'
 import {useHttp} from '../hooks/http.hook'
 import {useMessage} from '../hooks/message.hook'
 import {AuthContext} from '../context/auth.context'
+import Row from "react-bootstrap/Row";
+import Image from "react-bootstrap/Image";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form"
+import CSSTransition from "react-transition-group/CSSTransition";
+import Container from "react-bootstrap/Container";
+
 
 export const AuthPage = () => {
     const auth = useContext(AuthContext)
@@ -10,6 +17,15 @@ export const AuthPage = () => {
     const [form, setForm] = useState({
         email: '', password: '', status: 'student',
     })
+
+    const [showForm, setShowForm] = useState(false);
+    const [showImage, setShowImage] = useState(true);
+
+    const handleClose = () => setShowImage(false);
+    const handleShow = () => {
+        handleClose();
+        setShowForm(true);
+    }
 
     useEffect(() => {
         message(error)
@@ -32,54 +48,59 @@ export const AuthPage = () => {
     }
 
     return (
-        <div className="row">
-            <div className="col s6 offset-s3">
-                <h1>Вход в личный кабинет</h1>
-                <div className="card blue darken-1">
-                    <div className="card-content white-text">
-                        <span className="card-title">Авторизация</span>
-                        <div>
+        <>
+            {showImage &&
+                <>
 
-                            <div className="input-field">
-                                <input
-                                    placeholder="Введите email"
-                                    id="email"
-                                    type="text"
-                                    name="email"
-                                    className="yellow-input"
-                                    value={form.email}
-                                    onChange={changeHandler}
-                                />
-                                <label htmlFor="email">Email</label>
-                            </div>
+                    <Row className="justify-content-center">
+                        <Image src="https://m-files-new.cdnvideo.ru/lpfile/c/7/1/c71291c0a32a29505b850a7b36e8763f.png" fluid></Image>
+                    </Row>
+                    <Row className="justify-content-center">
+                        <Button onClick={handleShow} className="btn-primary">
+                            Продолжить
+                        </Button>
+                    </Row>
+                </>
+            }
+            <CSSTransition
+                in={showForm}
+                timeout={400}
+                classNames="myForm"
+            >
+                <Form className="myForm-enter"
+                      style={{marginTop:"20%", width: "60%", marginLeft:"auto", marginRight:"auto"}}
+                >
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                            type="email"
+                            name = "email"
+                            placeholder="Введите email"
+                            onChange={changeHandler}
+                        />
+                        <Form.Text className="text-muted">
+                            Данные для входа можно получить у преподавателя
+                        </Form.Text>
+                    </Form.Group>
 
-                            <div className="input-field">
-                                <input
-                                    placeholder="Введите пароль"
-                                    id="password"
-                                    type="password"
-                                    name="password"
-                                    className="yellow-input"
-                                    value={form.password}
-                                    onChange={changeHandler}
-                                />
-                                <label htmlFor="email">Пароль</label>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div className="card-action">
-                        <button
-                            className="btn yellow darken-4"
-                            style={{marginRight: 10}}
-                            disabled={loading}
-                            onClick={loginHandler}
-                        >
-                            Войти
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label>Пароль</Form.Label>
+                        <Form.Control
+                            type="password"
+                            name = "password"
+                            placeholder="Пароль"
+                            onChange={changeHandler}
+                        />
+                    </Form.Group>
+                    <Button
+                        variant="primary"
+                        onClick={loginHandler}
+                        disabled={loading}
+                    >
+                        Войти
+                    </Button>
+                </Form>
+            </CSSTransition>
+        </>
     )
 }

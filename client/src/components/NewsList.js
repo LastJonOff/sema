@@ -1,6 +1,4 @@
-import React, {useContext} from 'react'
-import {useHttp} from '../hooks/http.hook'
-import {Link} from 'react-router-dom'
+import React from 'react'
 
 export const NewsList = ({news}) => {
 
@@ -12,7 +10,7 @@ export const NewsList = ({news}) => {
         <>
             { news.map((item) => {
                 return (
-                    <div className="container">
+                    <div className="container" key={item._id}>
                         <h2>{item.title}</h2>
                         <div className="divider"></div>
                         <p>{item.description}</p>

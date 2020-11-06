@@ -1,7 +1,6 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {useHttp} from "../hooks/http.hook";
 import {Loader} from "../components/Loader";
-import {Link} from "react-router-dom";
 
 export const QuestionsPage = () => {
 
