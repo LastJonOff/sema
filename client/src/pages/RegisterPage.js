@@ -43,7 +43,7 @@ export const RegisterPage = () => {
 
     return (
         <Form
-              style={{marginTop:"20%", width: "60%", marginLeft:"auto", marginRight:"auto"}}
+              style={{marginTop:"10%", width: "60%", marginLeft:"auto", marginRight:"auto"}}
         >
             <Form.Group controlId="formBasicEmail">
                 <Form.Label>Email</Form.Label>

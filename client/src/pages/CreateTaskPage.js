@@ -49,11 +49,12 @@ export const CreateTaskPage = () => {
 
     return (
         <Form
-            style={{marginTop:"20%", width: "60%", marginLeft:"auto", marginRight:"auto"}}
+            style={{marginTop:"10%", width: "60%", marginLeft:"auto", marginRight:"auto"}}
         >
             <Form.Group controlId="formSelectCourse">
-                <Form.Label>Статус</Form.Label>
-                <Form.Control as="select" name = "courseName" onChange={changeHandler}>
+                <Form.Label>Курс</Form.Label>
+                <Form.Control as="select"  type="text" name = "courseName" onChange={changeHandler}>
+                    <option value="">Выберите из списка</option>
                     { courses.map((course) => {
                         return (
                             <option value={course.title}>{course.title}</option>

@@ -40,7 +40,7 @@ export const CreatePage = () => {
 
     return (
         <Form
-            style={{marginTop:"20%", width: "60%", marginLeft:"auto", marginRight:"auto"}}
+            style={{marginTop:"10%", width: "60%", marginLeft:"auto", marginRight:"auto"}}
         >
             <Form.Group controlId="formBasicTitle">
                 <Form.Label>Название курса</Form.Label>

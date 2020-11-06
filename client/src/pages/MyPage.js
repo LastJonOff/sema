@@ -6,6 +6,9 @@ import {useHistory} from "react-router-dom";
 import M from 'materialize-css/dist/js/materialize.min';
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Image from "react-bootstrap/Image";
 
 export const MyPage = () => {
 
@@ -48,39 +51,40 @@ export const MyPage = () => {
     return (
         <>
             {!loading &&
-                <div className="row" style={{paddingTop:20}}>
-                    <div className="col s3">
-                        <img
-                            src="https://avatars.mds.yandex.net/get-pdb/903199/99ae6658-6578-40f4-af41-89e097c247bc/s1200"
-                            alt=""
-                            className="circle responsive-img"
-                            style={{height: 200, width: 200}}
-                        />
-                    </div>
-                    <div className="col s8 offset-s1">
-                        <h2 style={{marginBottom: 0}}>{info.name}</h2>
-                        <h2 style={{margin: 0}}>{info.surname}</h2>
-                    </div>
-                    <Button
-                        onClick={handleShow}
-                    >
-                        show
-                    </Button>
-                    <Modal show={show} onHide={handleClose}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Изменить данные</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
-                                Close
-                            </Button>
-                            <Button variant="primary" onClick={handleClose}>
-                                Save Changes
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
-                </div>
+            <Row className="pt-3">
+                <Col xs={12} md={12} lg={3}>
+                    <Image
+                        src="https://avatars.mds.yandex.net/get-pdb/903199/99ae6658-6578-40f4-af41-89e097c247bc/s1200"
+                        alt=""
+                        roundedCircle
+                        fluid
+                        style={{height:200, width:200}}
+                    />
+                </Col>
+                <Col xs={12} md={12} lg={9}>
+                    <h2 style={{marginBottom: 0}}>{info.name}</h2>
+                    <h2 style={{margin: 0}}>{info.surname}</h2>
+                </Col>
+                <Button
+                    onClick={handleShow}
+                >
+                    show
+                </Button>
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Изменить данные</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Close
+                        </Button>
+                        <Button variant="primary" onClick={handleClose}>
+                            Save Changes
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            </Row>
             }
         </>
     )
